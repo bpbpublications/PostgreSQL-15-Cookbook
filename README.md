@@ -1,2 +1,2 @@
-# PostgreSQL 15 Mastery
- PostgreSQL 15 Mastery, by BPB Publications
+# PostgreSQL 15 Cookbook
+ PostgreSQL 15 Cookbook, by BPB Publications
