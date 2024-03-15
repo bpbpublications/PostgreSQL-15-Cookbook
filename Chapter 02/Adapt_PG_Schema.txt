@@ -1,0 +1,28 @@
+# Login  to  the  psql  shell 
+psql
+
+# Perform  Database  Connection
+\c postgres
+
+# List out the existing schema in database postgres
+SELECT schema_name FROM information_schema.schemata;
+
+# Create schema BOOKS
+create schema BOOKSs;
+
+# List  value  for  search_path  variable
+SHOW  search_path;
+
+# Set schema name in the Search_path
+SET search_path TO books,public;
+
+# List  value  for  search_path  variable
+SHOW search_path;
+
+#  Create  table  book_list
+create  table  book_list  (name  text);
+
+#  Execute  a  Select  statement  without  schema  name 
+select  *  from  book_list;
+
+

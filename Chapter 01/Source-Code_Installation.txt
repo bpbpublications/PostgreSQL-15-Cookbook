@@ -1,0 +1,33 @@
+#extract the source code binaries
+tar  -xzf  postgresql-15.0.tar.gz
+
+#Create postgres user
+useradd -d  /home/postgres/  postgres
+
+#  Create  PG  installation  directory  and  a  data  directory.
+mkdir  -p  /pg_install/pgv150
+mkdir  -p  /pg_data/DATA
+
+#  Change  Ownership  to  PG  installation  directory  and  a  data directory.
+chown  -R  postgres:postgres  /pg_install/pgv150
+chown  -R  postgres:postgres  /pg_data/DATA
+
+#  Navigate  to  extract  directory
+  cd  postgresql-15.0
+
+#  Configure  the  source  code
+  ./configure    --prefix=/pg_install/pgv150/
+
+# Build PG
+make
+
+#Start PG Installation
+make install
+
+
+# initialize the database
+su  -  postgres
+/pg_install/pgv150/bin/initdb  -D  /pg_data/DATA/
+
+#  Start PG Service
+/pg_install/pgv150/bin/pg_ctl  -D  /pg_data/DATA/  -l  logfile  start

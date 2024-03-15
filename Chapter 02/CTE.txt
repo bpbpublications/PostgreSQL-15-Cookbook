@@ -1,0 +1,69 @@
+#  Create  a  table  for  Drivers
+CREATE  TABLE  drivers  (
+        driver_id  serial  PRIMARY  KEY,
+        driver_name  VARCHAR,
+        car_make  VARCHAR,
+        car_model  VARCHAR
+);
+
+#  Create  a  table  for  Trips
+CREATE  TABLE  trips  (
+        trip_id  serial  PRIMARY  KEY,
+        driver_id  INT,
+        passenger_name  VARCHAR,
+        fare  numeric,
+        passenger_rating  numeric
+);
+
+#  Insert  the  sample  data  to  Drivers  table
+INSERT  INTO  drivers  (driver_name,  car_make,  car_model) VALUES ('Charlie  Brown',  'Toyota',  'Camry'), ('Bugs  Bunny',  'Honda',  'Accord');
+
+#  Insert  the  sample  data  to  Trips  table
+INSERT  INTO  trips  (driver_id,  passenger_name,  fare, passenger_rating) VALUES (1,  'Bart',  25.50,  4.8), (1,  'Felix',  18.75,  4.9), (2,  'Jerry',  30.25,  4.7);
+
+#  Retrieve  the  list  of  drivers
+SELECT  *  FROM  drivers;
+
+#  Retrieve  the  list  of  Trips
+SELECT  *  FROM  trips;
+
+
+# Retrieve calculate total earnings for each driver:
+WITH  driver_earnings  AS  (
+        SELECT  driver_id,  SUM(fare)  AS  total_earnings
+        FROM  trips
+        GROUP  BY  driver_id
+)
+SELECT  d.driver_name,  d.car_make,  d.car_model,  de.total_earnings
+FROM  drivers  d
+JOIN  driver_earnings  de  ON  d.driver_id  =  de.driver_id;
+
+# calculate average passenger ratings for each driver:
+
+WITH  driver_ratings  AS  (
+        SELECT  driver_id,  AVG(passenger_rating)  AS  avg_rating
+        FROM  trips
+        GROUP  BY  driver_id
+)
+SELECT  d.driver_name,  d.car_make,  d.car_model,  dr.avg_rating
+FROM  drivers  d
+JOIN  driver_ratings  dr  ON  d.driver_id  =  dr.driver_id;
+
+# analyze driver earnings and average ratings:
+WITH  driver_earnings  AS  (
+        SELECT  driver_id,  SUM(fare)  AS  total_earnings
+        FROM  trips
+        GROUP  BY  driver_id
+),
+driver_ratings  AS  (
+        SELECT  driver_id,  AVG(passenger_rating)  AS  avg_rating
+        FROM  trips
+        GROUP  BY  driver_id
+)
+SELECT  d.driver_name,  d.car_make,  d.car_model,  de.total_earnings, 
+dr.avg_rating
+FROM  drivers  d
+JOIN  driver_earnings  de  ON  d.driver_id  =  de.driver_id
+JOIN  driver_ratings  dr  ON  d.driver_id  =  dr.driver_id;
+
+

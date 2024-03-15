@@ -1,0 +1,15 @@
+[Unit]
+Description=Prometheus PostgreSQL Exporter
+After=network-online.target
+Wants=network-online.target
+[Service]
+User=postgres_exporter
+Group=postgres_exporter
+WorkingDirectory=/Mon_binary/postgres_exporter
+EnvironmentFile=/tmp/postgres_exporter.env
+ExecStart=/Mon_binary/postgres_exporter/postgres_exporter --web.listen-
+address=192.168.187.133:9187 --web.telemetry-path=/metrics --
+log.level=debug
+Restart=always
+[Install]
+WantedBy=multi-user.target

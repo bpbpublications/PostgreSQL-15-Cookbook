@@ -1,0 +1,24 @@
+# OS Release
+#  cat  /etc/os-release 
+NAME="Red  Hat  Enterprise  Linux"
+VERSION="8.4  (Ootpa)"
+ID="rhel"
+ID_LIKE="fedora"
+VERSION_ID="8.4"
+
+# Install RPM
+yum  localinstall  postgresql15-libs-15.0-1PGDG.rhel8.x86_64.rpm postgresql15-15.0-1PGDG.rhel8.x86_64.rpm  postgresql15-server-15.0-1PGDG.rhel8.x86_64.rpm  -y
+
+# initialize PG 
+/usr/pgsql-15/bin/postgresql-15-setup  initdb
+
+# Start PG Service
+systemctl  start  postgresql-15.service
+
+#  PG Service Status
+systemctl  status  postgresql-15.service
+
+# Enable PG Service
+systemctl  enable  postgresql-15.service
+
+

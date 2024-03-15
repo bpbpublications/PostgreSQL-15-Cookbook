@@ -1,0 +1,26 @@
+#  Create  Parent  Table 
+CREATE  TABLE  books.author  (id  integer  NOT  NULL  GENERATED  ALWAYS  AS  IDENTITY  (  INCREMENT  1  START  1  MINVALUE  1  MAXVALUE  10000000  CACHE  1  ),  author_name  text,    CONSTRAINT  id_prikey  PRIMARY  KEY  (id)  );
+
+#  Drop  the  Table  books.book_list  that  we  created  in  previous recipe 
+DROP  TABLE  books.book_list
+
+#  Create  Child  Table  with  INHERITS  clause
+CREATE  TABLE  books.book_list  (book_id  integer,  book_name  text  )  INHERITS  (books.author);
+
+#  select  the  data  from  Parent  Table
+select  *  from  books.author;
+
+#  select  the  data  from  Child  Table
+select  *  from  books.book_list;
+
+#  Insert data to book_list table
+INSERT INTO  books.book_list  (id,  author_name,  book_id,  book_name) VALUES (1,  'TEST',  804,  'PGS');
+INSERT INTO  books.book_list  (id,  author_name,  book_id,  book_name) VALUES (1,  'REST',  805,  'PGS');
+
+#  Insert  data  to  author table
+INSERT  INTO  books.author  (author_name) VALUES ('sun'), (‘moon’);
+
+#  select  the  data  from  parent  Table using ONLY Clause
+select  *  from  ONLY books.author;
+
+

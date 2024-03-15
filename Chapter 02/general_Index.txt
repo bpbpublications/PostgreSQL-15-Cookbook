@@ -1,0 +1,5 @@
+#  Create simple index
+create index book_list_idx  on books.book_list (book_id);
+
+#  List Index for table books.book_list
+SELECT  indexname,  indexdef  FROM  pg_indexes  WHERE  tablename  = 'book_list';
